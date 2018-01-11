@@ -1,0 +1,7 @@
+﻿
+@if (Request.IsAuthenticated) {
+    <span>
+        Welcome, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+        <a href="/Account/LogOff">Sing out</a>
+   </span>
+} 

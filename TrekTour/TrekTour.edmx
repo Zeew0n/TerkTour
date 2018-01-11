@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TrekTourModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="TrekTourModelStoreContainer">
+          <EntitySet Name="ContentFunctions" EntityType="TrekTourModel.Store.ContentFunctions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ContentImages" EntityType="TrekTourModel.Store.ContentImages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Contents" EntityType="TrekTourModel.Store.Contents" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ContentTags" EntityType="TrekTourModel.Store.ContentTags" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Functions" EntityType="TrekTourModel.Store.Functions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Menus" EntityType="TrekTourModel.Store.Menus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="NewsRecords" EntityType="TrekTourModel.Store.NewsRecords" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QuotesRecords" EntityType="TrekTourModel.Store.QuotesRecords" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tags" EntityType="TrekTourModel.Store.Tags" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TestimonialsRecords" EntityType="TrekTourModel.Store.TestimonialsRecords" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ContentFunctions_Contents" Association="TrekTourModel.Store.FK_ContentFunctions_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ContentFunctions" EntitySet="ContentFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentFunctions_Functions" Association="TrekTourModel.Store.FK_ContentFunctions_Functions">
+            <End Role="Functions" EntitySet="Functions" />
+            <End Role="ContentFunctions" EntitySet="ContentFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentImages_Contents" Association="TrekTourModel.Store.FK_ContentImages_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ContentImages" EntitySet="ContentImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentTags_Contents" Association="TrekTourModel.Store.FK_ContentTags_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ContentTags" EntitySet="ContentTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentTags_Tags" Association="TrekTourModel.Store.FK_ContentTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="ContentTags" EntitySet="ContentTags" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ContentFunctions">
+          <Key>
+            <PropertyRef Name="ContentFunctionId" />
+          </Key>
+          <Property Name="ContentFunctionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ContentId" Type="int" Nullable="false" />
+          <Property Name="FunctionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContentImages">
+          <Key>
+            <PropertyRef Name="ContentImageId" />
+          </Key>
+          <Property Name="ContentImageId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ContentId" Type="int" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Contents">
+          <Key>
+            <PropertyRef Name="ContentId" />
+          </Key>
+          <Property Name="ContentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="SubTitle" Type="nvarchar" MaxLength="500" />
+          <Property Name="Descriptions" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageFolderName" Type="nvarchar" MaxLength="500" />
+          <Property Name="isFeatured" Type="bit" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ContentTags">
+          <Key>
+            <PropertyRef Name="ContentTagId" />
+          </Key>
+          <Property Name="ContentTagId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+          <Property Name="ContentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Functions">
+          <Key>
+            <PropertyRef Name="FunctionId" />
+          </Key>
+          <Property Name="FunctionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionName" Type="nvarchar" Nullable="false" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MenuText" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MenuPosition" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ContentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NewsRecords">
+          <Key>
+            <PropertyRef Name="NewsRecordId" />
+          </Key>
+          <Property Name="NewsRecordId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="Descriptions" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="QuotesRecords">
+          <Key>
+            <PropertyRef Name="QuotesRecordId" />
+          </Key>
+          <Property Name="QuotesRecordId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="Descriptions" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TestimonialsRecords">
+          <Key>
+            <PropertyRef Name="TestimonialsRecordId" />
+          </Key>
+          <Property Name="TestimonialsRecordId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="Descriptions" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="500" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_ContentFunctions_Contents">
+          <End Role="Contents" Type="TrekTourModel.Store.Contents" Multiplicity="1" />
+          <End Role="ContentFunctions" Type="TrekTourModel.Store.ContentFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContentId" />
+            </Principal>
+            <Dependent Role="ContentFunctions">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentFunctions_Functions">
+          <End Role="Functions" Type="TrekTourModel.Store.Functions" Multiplicity="1" />
+          <End Role="ContentFunctions" Type="TrekTourModel.Store.ContentFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Functions">
+              <PropertyRef Name="FunctionId" />
+            </Principal>
+            <Dependent Role="ContentFunctions">
+              <PropertyRef Name="FunctionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentImages_Contents">
+          <End Role="Contents" Type="TrekTourModel.Store.Contents" Multiplicity="1" />
+          <End Role="ContentImages" Type="TrekTourModel.Store.ContentImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContentId" />
+            </Principal>
+            <Dependent Role="ContentImages">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentTags_Contents">
+          <End Role="Contents" Type="TrekTourModel.Store.Contents" Multiplicity="1" />
+          <End Role="ContentTags" Type="TrekTourModel.Store.ContentTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContentId" />
+            </Principal>
+            <Dependent Role="ContentTags">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentTags_Tags">
+          <End Role="Tags" Type="TrekTourModel.Store.Tags" Multiplicity="1" />
+          <End Role="ContentTags" Type="TrekTourModel.Store.ContentTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="ContentTags">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrekTourModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TrekTourEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="ContentFunctions" EntityType="TrekTourModel.ContentFunctions" />
+          <EntitySet Name="ContentImages" EntityType="TrekTourModel.ContentImages" />
+          <EntitySet Name="Contents" EntityType="TrekTourModel.Contents" />
+          <EntitySet Name="Functions" EntityType="TrekTourModel.Functions" />
+          <AssociationSet Name="FK_ContentFunctions_Contents" Association="TrekTourModel.FK_ContentFunctions_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ContentFunctions" EntitySet="ContentFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentFunctions_Functions" Association="TrekTourModel.FK_ContentFunctions_Functions">
+            <End Role="Functions" EntitySet="Functions" />
+            <End Role="ContentFunctions" EntitySet="ContentFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentImages_Contents" Association="TrekTourModel.FK_ContentImages_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ContentImages" EntitySet="ContentImages" />
+          </AssociationSet>
+          <EntitySet Name="NewsRecords" EntityType="TrekTourModel.NewsRecords" />
+          <EntitySet Name="QuotesRecords" EntityType="TrekTourModel.QuotesRecords" />
+          <EntitySet Name="TestimonialsRecords" EntityType="TrekTourModel.TestimonialsRecords" />
+          <EntitySet Name="Tags" EntityType="TrekTourModel.Tags" />
+          <EntitySet Name="ContentTags" EntityType="TrekTourModel.ContentTags" />
+          <AssociationSet Name="FK_ContentTags_Contents" Association="TrekTourModel.FK_ContentTags_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ContentTags" EntitySet="ContentTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentTags_Tags" Association="TrekTourModel.FK_ContentTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="ContentTags" EntitySet="ContentTags" />
+          </AssociationSet>
+          <EntitySet Name="Menus" EntityType="TrekTourModel.Menus" />
+        </EntityContainer>
+        <EntityType Name="ContentFunctions">
+          <Key>
+            <PropertyRef Name="ContentFunctionId" />
+          </Key>
+          <Property Name="ContentFunctionId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ContentId" Type="Int32" Nullable="false" />
+          <Property Name="FunctionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contents" Relationship="TrekTourModel.FK_ContentFunctions_Contents" FromRole="ContentFunctions" ToRole="Contents" />
+          <NavigationProperty Name="Functions" Relationship="TrekTourModel.FK_ContentFunctions_Functions" FromRole="ContentFunctions" ToRole="Functions" />
+        </EntityType>
+        <EntityType Name="ContentImages">
+          <Key>
+            <PropertyRef Name="ContentImageId" />
+          </Key>
+          <Property Name="ContentImageId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ContentId" Type="Int32" Nullable="false" />
+          <Property Name="ImageName" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Contents" Relationship="TrekTourModel.FK_ContentImages_Contents" FromRole="ContentImages" ToRole="Contents" />
+        </EntityType>
+        <EntityType Name="Contents">
+          <Key>
+            <PropertyRef Name="ContentId" />
+          </Key>
+          <Property Name="ContentId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="SubTitle" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Descriptions" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ImageFolderName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="isFeatured" Type="Boolean" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ContentFunctions" Relationship="TrekTourModel.FK_ContentFunctions_Contents" FromRole="Contents" ToRole="ContentFunctions" />
+          <NavigationProperty Name="ContentImages" Relationship="TrekTourModel.FK_ContentImages_Contents" FromRole="Contents" ToRole="ContentImages" />
+          <NavigationProperty Name="ContentTags" Relationship="TrekTourModel.FK_ContentTags_Contents" FromRole="Contents" ToRole="ContentTags" />
+        </EntityType>
+        <EntityType Name="Functions">
+          <Key>
+            <PropertyRef Name="FunctionId" />
+          </Key>
+          <Property Name="FunctionId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionName" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ContentFunctions" Relationship="TrekTourModel.FK_ContentFunctions_Functions" FromRole="Functions" ToRole="ContentFunctions" />
+        </EntityType>
+        <Association Name="FK_ContentFunctions_Contents">
+          <End Role="Contents" Type="TrekTourModel.Contents" Multiplicity="1" />
+          <End Role="ContentFunctions" Type="TrekTourModel.ContentFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContentId" />
+            </Principal>
+            <Dependent Role="ContentFunctions">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentFunctions_Functions">
+          <End Role="Functions" Type="TrekTourModel.Functions" Multiplicity="1" />
+          <End Role="ContentFunctions" Type="TrekTourModel.ContentFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Functions">
+              <PropertyRef Name="FunctionId" />
+            </Principal>
+            <Dependent Role="ContentFunctions">
+              <PropertyRef Name="FunctionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentImages_Contents">
+          <End Role="Contents" Type="TrekTourModel.Contents" Multiplicity="1" />
+          <End Role="ContentImages" Type="TrekTourModel.ContentImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContentId" />
+            </Principal>
+            <Dependent Role="ContentImages">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NewsRecords">
+          <Key>
+            <PropertyRef Name="NewsRecordId" />
+          </Key>
+          <Property Type="Int32" Name="NewsRecordId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Descriptions" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="isActive" Nullable="false" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="UpdatedBy" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="QuotesRecords">
+          <Key>
+            <PropertyRef Name="QuotesRecordId" />
+          </Key>
+          <Property Type="Int32" Name="QuotesRecordId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Descriptions" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="isActive" Nullable="false" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="UpdatedBy" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="TestimonialsRecords">
+          <Key>
+            <PropertyRef Name="TestimonialsRecordId" />
+          </Key>
+          <Property Type="Int32" Name="TestimonialsRecordId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Descriptions" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImageName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="isActive" Nullable="false" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="UpdatedBy" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Type="Int32" Name="TagId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ContentTags" Relationship="TrekTourModel.FK_ContentTags_Tags" FromRole="Tags" ToRole="ContentTags" />
+        </EntityType>
+        <EntityType Name="ContentTags">
+          <Key>
+            <PropertyRef Name="ContentTagId" />
+          </Key>
+          <Property Type="Int32" Name="ContentTagId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TagId" Nullable="false" />
+          <Property Type="Int32" Name="ContentId" Nullable="false" />
+          <NavigationProperty Name="Contents" Relationship="TrekTourModel.FK_ContentTags_Contents" FromRole="ContentTags" ToRole="Contents" />
+          <NavigationProperty Name="Tags" Relationship="TrekTourModel.FK_ContentTags_Tags" FromRole="ContentTags" ToRole="Tags" />
+        </EntityType>
+        <Association Name="FK_ContentTags_Contents">
+          <End Type="TrekTourModel.Contents" Role="Contents" Multiplicity="1" />
+          <End Type="TrekTourModel.ContentTags" Role="ContentTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContentId" />
+            </Principal>
+            <Dependent Role="ContentTags">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentTags_Tags">
+          <End Type="TrekTourModel.Tags" Role="Tags" Multiplicity="1" />
+          <End Type="TrekTourModel.ContentTags" Role="ContentTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="ContentTags">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Type="Int32" Name="MenuId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="MenuText" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MenuPosition" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ContentId" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TrekTourModelStoreContainer" CdmEntityContainer="TrekTourEntities">
+          <EntitySetMapping Name="ContentFunctions">
+            <EntityTypeMapping TypeName="TrekTourModel.ContentFunctions">
+              <MappingFragment StoreEntitySet="ContentFunctions">
+                <ScalarProperty Name="ContentFunctionId" ColumnName="ContentFunctionId" />
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+                <ScalarProperty Name="FunctionId" ColumnName="FunctionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentImages">
+            <EntityTypeMapping TypeName="TrekTourModel.ContentImages">
+              <MappingFragment StoreEntitySet="ContentImages">
+                <ScalarProperty Name="ContentImageId" ColumnName="ContentImageId" />
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contents">
+            <EntityTypeMapping TypeName="TrekTourModel.Contents">
+              <MappingFragment StoreEntitySet="Contents">
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SubTitle" ColumnName="SubTitle" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="ImageFolderName" ColumnName="ImageFolderName" />
+                <ScalarProperty Name="isFeatured" ColumnName="isFeatured" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Functions">
+            <EntityTypeMapping TypeName="TrekTourModel.Functions">
+              <MappingFragment StoreEntitySet="Functions">
+                <ScalarProperty Name="FunctionId" ColumnName="FunctionId" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsRecords">
+            <EntityTypeMapping TypeName="TrekTourModel.NewsRecords">
+              <MappingFragment StoreEntitySet="NewsRecords">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="NewsRecordId" ColumnName="NewsRecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuotesRecords">
+            <EntityTypeMapping TypeName="TrekTourModel.QuotesRecords">
+              <MappingFragment StoreEntitySet="QuotesRecords">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="QuotesRecordId" ColumnName="QuotesRecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestimonialsRecords">
+            <EntityTypeMapping TypeName="TrekTourModel.TestimonialsRecords">
+              <MappingFragment StoreEntitySet="TestimonialsRecords">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TestimonialsRecordId" ColumnName="TestimonialsRecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="TrekTourModel.Tags">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentTags">
+            <EntityTypeMapping TypeName="TrekTourModel.ContentTags">
+              <MappingFragment StoreEntitySet="ContentTags">
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="ContentTagId" ColumnName="ContentTagId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="TrekTourModel.Menus">
+              <MappingFragment StoreEntitySet="Menus">
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+                <ScalarProperty Name="MenuPosition" ColumnName="MenuPosition" />
+                <ScalarProperty Name="MenuText" ColumnName="MenuText" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

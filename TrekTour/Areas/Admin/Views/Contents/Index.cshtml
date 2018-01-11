@@ -1,0 +1,78 @@
+﻿@model TrekTour.Areas.Admin.Models.ContentsModels
+
+@{
+        ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well well-small">
+    <div class="row">
+        <div class="span16">
+            <h4>contents List</h4>
+        </div>
+        <div class="span17">
+
+            <a class="btn btn-primary  pull-right"  href="@Url.Action("Create", "Contents")">Create New</a>
+        </div>
+    </div>
+
+    @if (Model.ContentsList.Count > 0)
+    {
+        int Sno = 1;
+        <table class="table table-striped">
+            <tr>
+                <td class="span1">Sno</td>
+                <td>
+                    @Html.LabelFor(model => model.Title)
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.SubTitle)
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.Descriptions)
+                </td>
+                <th>Image</th>
+
+                <th></th>
+            </tr>
+            @foreach (var item in Model.ContentsList)
+            {
+  
+                <tr>
+                    <td class="span1">
+                        @Sno
+                    </td>
+                    <td>
+                        @item.Title
+                    </td>
+                    <td>
+                        @item.SubTitle
+                    </td>
+                    <td>
+                        @item.Descriptions
+                    </td>
+                    <td>
+                        <a href="/Admin/ContentImages/Index/@item.ContentId">Images <span class="badge badge-info">@Model.GetTotalImageOnContent(item.ContentId)</span> </a>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="#" data-toggle="dropdown" class="btn dropdown-toggle table-row-btn">Action
+                                    <span class="caret"></span></a>
+                            <ul style="min-width: 80px;" class="dropdown-menu table-row-d-menu">
+                                <li><a href="/Admin/Contents/Edit/@item.ContentId">Edit</a></li>
+                                <li><a href="/Admin/Contents/Delete/@item.ContentId" onclick = "return confirm('Do you want to delete?')">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+
+                </tr>
+                Sno++;
+            }
+        </table>
+    }
+    else
+    {
+        <h4>Rocord not found!!!</h4> 
+    }
+</div>
+

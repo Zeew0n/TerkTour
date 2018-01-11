@@ -1,0 +1,41 @@
+﻿@model TrekTour.Areas.Admin.Models.ContentImagesModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "ContentImages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+      <ul class="thumbnails" >
+     @foreach (var item in Model.ContentImagesList)
+    {
+        string imageLink = System.Configuration.ConfigurationManager.AppSettings["ImageRootURL"] + "\\" + item.ImageFolderName + "\\" + item.ImageName;
+    
+     <li class="thumbnail">
+        <div class="pagination-centered">
+            <img alt="htlImg" src="@imageLink">
+        </div>
+       <br />
+            <a href="/Admin/ContentImages/Delete/@item.ContentImageId?ContentId=@item.ContentId" class="btn btn-small btn-danger" onclick = "return Deleteconfirm('Do you want to Delete this group?')">
+               <i class="icon-trash"></i>Delete</a>
+        </li>
+    
+    }
+          </ul>
+    
+    
+    @Html.HiddenFor(model=>model.ContentId)
+    @Html.HiddenFor(model=>model.ImageFolderName)
+
+    <div class="fileupload fileupload-new" data-provides="fileupload">
+        <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+        <div>
+            <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="UploadedFile" /></span>
+            <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+        </div>
+    </div>
+    <input class="btn btn-large btn-primary" type="submit" name="Upload" value="Upload" />
+}
+
+ <div>@Html.ActionLink("Back to list", "Index","Contents")</div>

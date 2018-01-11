@@ -1,0 +1,164 @@
+﻿@model TrekTour.Areas.Admin.Models.ContentsModels
+
+
+    <fieldset>
+        <legend>Manage Contents</legend>
+        @Html.HiddenFor(model => model.ContentId)
+       
+        <div >
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div >
+            @Html.TextBoxFor(model => model.Title, new { @class="span10"})
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div >
+            @Html.LabelFor(model => model.SubTitle)
+        </div>
+        <div >
+            @Html.TextBoxFor(model => model.SubTitle, new { @class="span10"})
+            @Html.ValidationMessageFor(model => model.SubTitle)
+        </div>
+
+           <div >
+            @Html.LabelFor(model => model.Descriptions)
+        </div>
+        <div >
+            @Html.TextAreaFor(model => model.Descriptions, new { @class="span15"})
+            @Html.ValidationMessageFor(model => model.Descriptions)
+        </div>
+
+         <div >
+            @Html.LabelFor(model => model.isFeatured)
+        </div>
+        <div >
+            @Html.CheckBoxFor(model => model.isFeatured)
+            @Html.ValidationMessageFor(model => model.isFeatured)
+        </div>
+
+        <div >
+            @Html.LabelFor(model => model.isActive)
+        </div>
+        <div >
+            @Html.CheckBoxFor(model => model.isActive)
+            @Html.ValidationMessageFor(model => model.isActive)
+        </div>
+
+      @foreach (var item in Model.FunctionList())
+      {
+          string isChecked="";
+          int FunctionId = int.Parse(item.Value);
+          
+          if (TrekTour.Utility.isExitFunction(FunctionId, Model.ContentId))
+          {
+              isChecked = "checked";
+          }
+              
+         @item.Text <input type="checkbox" id="@item.Value" value="@item.Value" name="SelectedFunctionIDs" @isChecked /><br />
+      }
+     
+           <label>
+            Tags</label>
+        <input type="text"  name="tags" placeholder="Tags" class="tagManager" />
+       
+    </fieldset>
+
+
+<script type="text/javascript">
+    var Getdata = [];
+    
+    function getTags() {
+        var tags
+        $.ajax({
+            type: "GET",
+            url: '/Admin/ajax/getContentTags/@Model.ContentId',
+            success: function (data) {
+                tags = data;
+            },
+            async: false
+        });
+        return tags;
+    }
+
+    $(document).ready(function () {
+        $("input[id='GroupName']").keyup(function () {
+            var valTitle = $(this).val();
+            var valURL = valTitle.split(' ').join('-').toLowerCase();
+            $("input[id='URL']").val(valURL);
+        });
+
+        $.get('/Admin/ajax/getTags', function (data) {
+            jQuery(".tagManager").tagsManager({
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                prefilled: getTags(),
+                typeaheadSource: data,
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                preventSubmitOnEnter: true,
+                hiddenTagListName: 'TagValues',
+                backspace:null
+            });
+        }, "json");
+
+        //dataType:"JSON"
+        //}); //$('#normal-toggle-button').toggleButtons();
+
+    });
+
+    function JqueryAjaxLoadSelectOption(selValue, targetElm, url) {
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: url + selValue,
+            contentType: "text/json",
+            data: ({ id: selValue }),
+            beforeSend: function () {
+                $("#" + targetElm).attr('disabled', 'disabled');
+                $("#" + targetElm).addClass('ac_loading');
+            },
+
+            success: function (jsonResult) {
+
+                var evlResult = JSON.retrocycle(jsonResult);
+                var selOption = "";
+                selOption = ParseJsonResultForSelectOptions(evlResult);
+                tempTargetElm = targetElm.split(',');
+                for (var i = 0; i < tempTargetElm.length; i++) {
+                    // alert(tempTargetElm.length + " : " + tempTargetElm[i]);
+                    $("#" + tempTargetElm[i]).empty().append(selOption);
+                    $("#" + tempTargetElm[i]).removeClass('ac_loading');
+                    $("#" + tempTargetElm[i]).removeAttr('disabled');
+                }
+
+
+            },
+            error: function (jsonResult) {
+                // alert(jsonResult);
+            }
+        });
+
+    }
+
+
+
+
+    function ParseJsonResultForSelectOptions(evlResult) {
+        var selOption = "";
+        $.each(evlResult, function (key, item) {
+            var isSelected = (item['Selected'] == "true") ? "Selected='Selected'" : "";
+            //var otherAttrib = (item['Attribs']!=undefined)? item['Attribs']:"";
+            var otherAttrib = "";
+            $.each(item, function (name, value) {
+                if (name != 'Selected' && name != 'Value' && name != 'Text') {
+                    otherAttrib += " " + name + '="' + value + '" ';
+                }
+            });
+            selOption += "<option value='" + item['Value'] + "' " + isSelected + " " + otherAttrib + " >"
+                + evlResult[key].Text + "</option>";
+        });
+        return selOption;
+    }
+
+</script>

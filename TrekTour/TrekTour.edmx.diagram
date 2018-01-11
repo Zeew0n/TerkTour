@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="461d08fdb3e444b3a0947ffbe2c47309" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="TrekTourModel.ContentFunctions" Width="1.5" PointX="5.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrekTourModel.ContentImages" Width="1.5" PointX="5.375" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrekTourModel.Contents" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrekTourModel.Functions" Width="1.5" PointX="2.625" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="TrekTourModel.FK_ContentFunctions_Contents" ManuallyRouted="false" />
+        <AssociationConnector Association="TrekTourModel.FK_ContentFunctions_Functions" ManuallyRouted="false" />
+        <AssociationConnector Association="TrekTourModel.FK_ContentImages_Contents" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TrekTourModel.NewsRecords" Width="1.5" PointX="4.875" PointY="8.375" />
+        <EntityTypeShape EntityType="TrekTourModel.QuotesRecords" Width="1.5" PointX="9.1401756168995867" PointY="30.264829277184248" />
+        <EntityTypeShape EntityType="TrekTourModel.TestimonialsRecords" Width="1.5" PointX="0.875" PointY="8.375" />
+        <EntityTypeShape EntityType="TrekTourModel.Tags" Width="1.5" PointX="7.375" PointY="8" />
+        <EntityTypeShape EntityType="TrekTourModel.ContentTags" Width="1.5" PointX="9.5" PointY="3.25" />
+        <AssociationConnector Association="TrekTourModel.FK_ContentTags_Contents" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="TrekTourModel.FK_ContentTags_Tags" />
+        <EntityTypeShape EntityType="TrekTourModel.Menus" Width="1.5" PointX="9.375" PointY="6.125" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

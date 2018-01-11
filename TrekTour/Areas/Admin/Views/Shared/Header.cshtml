@@ -1,0 +1,31 @@
+﻿
+<div class="navbar navbar-primary">
+    
+    <div class="navbar-inner">
+        <p class="navbar-text pull-right">
+            @Html.Partial("_LoginPartial")
+                 </p>
+        <div class="container">
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="active"><a class="dropdown-toggle"href="/Admin/AdminHome/Index">Home</a>
+                         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings</a>
+                              <ul class="dropdown-menu">
+                                  <li>@Html.ActionLink("Manage Contents", "Index", "Contents")</li>
+                                  <li>@Html.ActionLink("Manage News", "Index", "NewsRecords")</li>
+                                  <li>@Html.ActionLink("Manage Quotes", "Index", "QuotesRecords")</li>
+                                  <li>@Html.ActionLink("Manage Testimonilas", "Index", "TestimonialsRecords")</li>
+                                    <li>@Html.ActionLink("Manage Menu", "Index", "MenuManager")</li>
+                                  </ul>
+                             </li>
+                </ul>
+
+               
+                
+            </div>
+            
+        </div>
+    </div>
+      
+</div>

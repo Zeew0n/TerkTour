@@ -1,0 +1,67 @@
+﻿@model  TrekTour.Areas.Admin.Models.ContentItemModel
+            
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        
+    <fieldset id="table1">
+        <table class="table table-striped">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th></th>
+    </tr>
+
+    @{
+    foreach (var item in Model.ContetnItemList)
+    {
+         <tr>
+            <td>
+                @item.Title
+            </td>
+            <td onclick="setValue('@item.ContentId','@item.Title')" style=" cursor:pointer">
+               Select
+            </td>
+            </tr>
+    }
+    }
+    </table>
+    </fieldset>
+}
+
+<script type="text/javascript">
+    function getData(getUrl, formName, data, targetid, method) {
+        var formData = "";
+        if (formName != "") {
+            formData = $("form[id$=" + formName + "]").serialize()
+        }
+        else {
+            formData = data
+        }
+        $.ajax({
+            type: method,
+            url: getUrl,
+            data: formData,
+            async: false,
+            cache: false,
+            success: function (getData) {
+                $("#" + targetid).html(drawTable(getData));
+            },
+            error: function (errmsg) {
+                alert(errmsg);
+            }
+        });
+    }
+
+    function drawTable(data) { 
+    var html;
+    html+='<table class="table table-striped"><tr><th>Title</th><th></th></tr>';
+    $(data).each(function (index, item) {
+        html += ' <tr><td>' + item.Title + '</td><td onclick="setValue(\'' + item.ContentId + '\',\'' + item.Title + '\')" style="cursor:pointer">Select</td></tr>'
+    });
+    return html;
+    }
+</script>
+

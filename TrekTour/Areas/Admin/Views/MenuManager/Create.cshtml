@@ -1,0 +1,21 @@
+﻿@model TrekTour.Areas.Admin.Models.MenuManagerModels
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<legend>Create New Menu</legend>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "ManageLink" }))
+{
+    Html.RenderPartial("VUC_MenuManager");
+     <br />
+        <p>
+            <input type="submit" value="Save" class="btn btn-large btn-primary" />
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+}
+
+<div id="dialog1">
+</div>
+
+<script src="/Areas/Admin/Scripts/jquery-ui-1.10.2.js" type="text/javascript"></script>
+

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - TrekTour Administration Panel</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+       
+
+
+        <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap/bootstrap-tagmanager.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap/bootstrap-fileupload.css" rel="stylesheet" />
+
+           @Scripts.Render("~/bundles/jquery")
+            <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+            <script src="~/Scripts/bootstrap/bootstrap-tagmanager.js"></script>
+            <script src="~/Scripts/bootstrap/bootstrap-typeahead.js"></script>
+        <script src="~/Scripts/bootstrap/bootstrap-fileupload.js"></script>
+
+        
+    </head>
+    <body style="background-color:#6683A1; padding-left:50px; padding-right:50px;">
+        <div style="background-color:whitesmoke;">
+        <header>
+             <div class="row">
+                <div class="span3">
+                 <a href="/"> <img src="~/Content/img/logo.png"/></a>
+                    </div>
+                <div class="span6 pull-right">
+                    <h3>Administration Panel</h3>
+                    </div>
+                    </div>
+
+           @Html.Partial("Header")
+        </header>
+         
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+        </footer>
+
+     
+        @RenderSection("scripts", required: false)
+            </div>
+    </body>
+</html>

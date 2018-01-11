@@ -1,0 +1,18 @@
+﻿@model TrekTour.Areas.Admin.Models.NewsRecordsModel
+
+@{
+    ViewBag.Title = "News Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well well-small">
+@using (Html.BeginForm())
+{
+    Html.RenderPartial("VUC_Add");
+    <br />
+   
+        <input type="submit" value="Update" class="btn btn-primary btn-large" />
+      <a>  @Html.ActionLink("Back to list", "Index")</a>
+   
+}
+    </div>

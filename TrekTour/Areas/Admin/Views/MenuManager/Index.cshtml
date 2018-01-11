@@ -1,0 +1,124 @@
+﻿@model TrekTour.Areas.Admin.Models.MenuManagerModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="/Content/navigation-admin.css" rel="stylesheet" type="text/css" />
+
+<div class="drow">
+
+    @using (Html.BeginForm())
+    {
+    
+        <fieldset>
+            <legend>Menu Manager</legend>
+             <div class="span23">
+            <input type="submit" value="Save" class="btn btn-large btn-primary" />
+            <a class="btn btn-large" href="/Admin/MenuManager/Create" title="New">Add New</a>
+        </div>
+            <div class="navigation-menu span23">
+                @if (Model.MenuItemEntries.Any())
+                {
+                    @RenderMenuItems(Model.MenuItemEntries, 0)
+                }
+                else
+                {
+                    <h4>("The menu is empty")</h4>
+                }
+            </div>
+        </fieldset>
+       
+      
+   
+    }
+</div>
+
+
+
+@helper RenderMenuItems(IList<TrekTour.Areas.Admin.Models.MenuManagerModels> menuItems, int index)
+{
+            
+    @:<ol> 
+// store current level to detect lowerb or upper level
+        int currentLevel = Model.MenuItemEntries[index].MenuPosition.Split('.').Length - 1;
+        bool first = true;
+
+        for (int i = index; i < Model.MenuItemEntries.Count; i++)
+        {
+
+            var classname = "label";
+            var menuPartEntry = Model.MenuItemEntries[i];
+            var level = menuPartEntry.MenuPosition.Split('.').Length - 1; // 0 is for root level
+
+            if (level > currentLevel)
+            {
+                // render sub level, then continue to next element
+            @RenderMenuItems(menuItems, i) 
+    
+                var j = i;
+                while (j < Model.MenuItemEntries.Count && Model.MenuItemEntries[j].MenuPosition.Split('.').Length - 1 > currentLevel) { j++; };
+                i = j - 1;
+                continue;
+            }
+
+            if (level == currentLevel)
+            {
+                if (!first)
+                {
+                @:</li>
+            }
+
+                first = false;
+    
+            @:<li class="navigation-menu-item" data-index="@i">
+        
+                <div>
+                   
+                    <span class="label label-success">@menuPartEntry.MenuText</span>
+                    @{
+                if (menuPartEntry.MenuLinkName == "Link Not Found")
+                {
+                    classname = "label label-important";
+                }}
+                     
+                    <span class="@classname">@menuPartEntry.MenuLinkName</span> 
+
+                    <span class="navigation-position">
+                    <input type="text" class="text-box" name="@Html.NameFor(m => m.MenuItemEntries[i].MenuPosition)" value="@menuPartEntry.MenuPosition" /></span>
+                    <span class="navigation-actions">
+                        <input type="hidden" name="@Html.NameFor(m => m.MenuItemEntries[i].MenuId)" value="@menuPartEntry.MenuId" />
+                     @Html.ActionLink("Edit", "Edit", new { id = menuPartEntry.MenuId })
+                     @{
+                if (!@menuPartEntry.HasChild)
+                {
+                     <a href="/Admin/MenuManager/Delete/@menuPartEntry.MenuId" onclick = "return confirm('Do you want to Delete?')">| Delete</a>
+                }}
+                        
+                    </span>
+                </div>
+            
+                continue;
+            }
+
+            // done with current level
+            if (level < currentLevel)
+            {
+            @:</li>
+            break;
+            }
+        }
+    @:</ol>
+}
+
+
+<script src="/Scripts/Menu/jquery-1.7.1.js" type="text/javascript"></script>
+<script src="/Scripts/Menu/jquery-ui-1.8.20.js" type="text/javascript"></script>
+<script src="/Scripts/Menu/jquery.mjs.nestedSortable.js" type="text/javascript"></script>
+<script src="/Scripts/Menu/navigation-admin.js" type="text/javascript"></script>
+
+<script src="/Scripts/Menu/jquery.ui.core.js" type="text/javascript"></script>
+<script src="/Scripts/Menu/jquery.ui.sortable.js" type="text/javascript"></script>
+<script src="/Scripts/Menu/jquery.ui.widget.js" type="text/javascript"></script>
+<script src="/Scripts/Menu/jquery.ui.mouse.js" type="text/javascript"></script>

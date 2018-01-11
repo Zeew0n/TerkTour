@@ -1,0 +1,64 @@
+﻿@model TrekTour.Areas.Admin.Models.MenuManagerModels
+@{ 
+    Layout = null;
+}
+ @Html.ValidationSummary(true)
+    <fieldset>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MenuText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MenuText)
+            @Html.ValidationMessageFor(model => model.MenuText)
+        </div>
+        <div>
+        <label>Content Item</label>
+        </div>
+        <div>
+        <label id ="ContentItemTitle" class="label label-success">@Model.ContentItemTitle</label>
+        <label  onclick="getJsonMessage('/Admin/ContentItems/Index','ManageLink','','dialog1','Post')" class="btn  btn-min btn-info">Browse</label>
+        </div>
+        
+        <div>
+            @Html.HiddenFor(model => model.ContentId)
+        </div>
+       
+    </fieldset>
+
+<script type="text/javascript">
+
+    function setValue(id, Title) {
+        $("#ContentId").val(id);
+        $("#ContentItemTitle").text(Title);
+        $("#dialog1").empty();
+    }
+
+
+    function getJsonMessage(getUrl, formName, data, targetid, method) {
+        var formData = "";
+        if (formName != "") {
+            formData = $("form[id$=" + formName + "]").serialize()
+        }
+        else {
+            formData = data
+        }
+        $.ajax({
+            type: method,
+            url: getUrl,
+            data: formData,
+            async: false,
+            cache: false,
+            success: function (getData) {
+                $("#" + targetid).html(getData);
+            },
+            error: function (errmsg) {
+                alert(errmsg);
+            }
+        });
+    }
+
+    
+</script>
+           
+
